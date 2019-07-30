@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://addons/godot-vim/vim_editor.gd" type="Script" id=1]
+
+[sub_resource type="StyleBoxEmpty" id=1]
 
 [node name="VimEditor" type="PanelContainer"]
 anchor_right = 1.0
@@ -8,8 +10,11 @@ anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource( 1 )
-path_mode_label = NodePath("VBoxContainer/HBoxContainer/ModeLabel")
-path_text_edit = NodePath("VBoxContainer/TextEditor")
+path_mode_label = NodePath("VBoxContainer/Hotbar/ModeLabel")
+path_text_editor = NodePath("")
+path_hotbar = NodePath("VBoxContainer/Hotbar")
+path_cmd_edit = NodePath("VBoxContainer/Hotbar/CmdEdit")
+path_pos_label = NodePath("")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 margin_left = 7.0
@@ -17,16 +22,40 @@ margin_top = 7.0
 margin_right = 1017.0
 margin_bottom = 593.0
 
-[node name="TextEditor" type="TextEdit" parent="VBoxContainer"]
+[node name="Control" type="MarginContainer" parent="VBoxContainer"]
 margin_right = 1010.0
 margin_bottom = 568.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="TextEditor" type="TextEdit" parent="VBoxContainer/Control"]
+margin_right = 1010.0
+margin_bottom = 568.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Hotbar" type="HBoxContainer" parent="VBoxContainer"]
 margin_top = 572.0
 margin_right = 1010.0
 margin_bottom = 586.0
 
-[node name="ModeLabel" type="Label" parent="VBoxContainer/HBoxContainer"]
+[node name="ModeLabel" type="Label" parent="VBoxContainer/Hotbar"]
+visible = false
+margin_top = 5.0
+margin_right = 85.0
+margin_bottom = 19.0
+rect_min_size = Vector2( 70, 0 )
+text = "-- NORMAL --"
+
+[node name="CmdEdit" type="LineEdit" parent="VBoxContainer/Hotbar"]
+margin_right = 936.0
 margin_bottom = 14.0
+size_flags_horizontal = 3
+custom_styles/normal = SubResource( 1 )
+
+[node name="PositionLabel" type="Label" parent="VBoxContainer/Hotbar"]
+margin_left = 940.0
+margin_right = 1010.0
+margin_bottom = 14.0
+rect_min_size = Vector2( 70, 0 )
+text = "0, 0"

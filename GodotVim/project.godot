@@ -9,13 +9,19 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Node",
-"class": "Vim",
+"base": "Reference",
+"class": "VimData",
 "language": "GDScript",
-"path": "res://addons/godot-vim/vim.gd"
+"path": "res://addons/godot-vim/vim_data.gd"
+}, {
+"base": "PanelContainer",
+"class": "VimEditor",
+"language": "GDScript",
+"path": "res://addons/godot-vim/vim_editor.gd"
 } ]
 _global_script_class_icons={
-"Vim": ""
+"VimData": "",
+"VimEditor": ""
 }
 
 [application]

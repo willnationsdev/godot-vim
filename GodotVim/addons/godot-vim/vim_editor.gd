@@ -1,23 +1,22 @@
 tool
 extends PanelContainer
+class_name VimEditor
 
-export var path_mode_label: NodePath
-export var path_text_edit: NodePath
+signal vim_request(p_what, p_ud)
 
-onready var text_edit := get_node(path_text_edit)
-onready var mode_label: Label = get_node(path_mode_label)
+export var _path_mode_label: NodePath
+export var _path_text_editor: NodePath
+export var _path_hotbar: NodePath
+export var _path_cmd_edit: NodePath
+export var _path_pos_label: NodePath
+
+onready var text_editor: TextEdit = get_node(_path_text_editor) as TextEdit
+onready var hotbar: HBoxContainer = get_node(_path_hotbar) as HBoxContainer
+onready var mode_label: Label = get_node(_path_mode_label) as Label
+onready var cmd_edit: LineEdit = get_node(_path_cmd_edit) as LineEdit
+onready var pos_label: Label = get_node(_path_pos_label) as Label
 
 var plugin: EditorPlugin = null
-var vim: Node = null
 
-class VimOptions:
-	var alwaysvim: bool = true
-
-func init(p_plugin) -> void:
+func init(p_plugin: EditorPlugin) -> void:
 	plugin = p_plugin
-	vim = plugin.singleton
-	vim.connect("mode_updated", self, "_on_vim_mode_updated")
-
-func _on_vim_mode_updated(p_mode: int):
-	if mode_label:
-		mode_label.text = vim.MODE_TEXT[p_mode]

@@ -28,6 +28,7 @@ func _enter_tree():
 	var edi = get_editor_interface()
 	vim_editor = VimEditorScn.instance()
 	vim_editor.init(self)
+	vim_editor.visible = false
 	edi.get_editor_viewport().add_child(vim_editor)
 	
 	var c = Control.new()
@@ -49,7 +50,7 @@ func _enter_tree():
 
 func _unhandled_key_input(p_event: InputEventKey) -> void:
 	if p_event is InputEventWithModifiers:
-		if p_event.alt and not (p_event.shift or p_event.meta):
+		if p_event.alt and not (p_event.shift or p_event.meta or p_event.control or p_event.command):
 			if p_event.scancode == KEY_SPACE:
 				btn_vim.emit_signal("pressed")
 			if p_event.scancode == KEY_A:
@@ -74,6 +75,9 @@ func has_main_screen() -> bool:
 
 func get_plugin_name() -> String:
 	return "Vim"
+
+func get_plugin_icon() -> Object:
+	return preload("res://addons/godot-vim/icons/vim.svg")
 
 func _setup_other_plugins():
 	var count = 0
